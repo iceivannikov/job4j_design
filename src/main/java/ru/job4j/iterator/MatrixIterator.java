@@ -28,10 +28,6 @@ public class MatrixIterator implements Iterator<Integer> {
         }
         int element = data[row][column];
         column++;
-        if (column >= data[row].length) {
-            column = 0;
-            row++;
-        }
         return element;
     }
 }
