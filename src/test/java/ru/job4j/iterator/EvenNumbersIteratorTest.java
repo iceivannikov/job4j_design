@@ -8,7 +8,6 @@ import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 class EvenNumbersIteratorTest {
     private Iterator<Integer> iterator;
