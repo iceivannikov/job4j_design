@@ -144,3 +144,4 @@ class ForwardLinkedTest {
         assertThat(second.hasNext()).isFalse();
     }
 }
+

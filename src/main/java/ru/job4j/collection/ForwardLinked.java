@@ -94,3 +94,4 @@ public class ForwardLinked<T> implements Iterable<T> {
         }
     }
 }
+
