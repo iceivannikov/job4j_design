@@ -51,4 +51,12 @@ class SimpleQueueTest {
                 .isInstanceOf(NoSuchElementException.class)
                 .hasMessageContaining("Queue is empty");
     }
+
+    @Test
+    void whenPushPushPollAndPush() {
+        queue.push(2);
+        queue.poll();
+        queue.push(3);
+        assertThat(queue.poll()).isEqualTo(2);
+    }
 }
