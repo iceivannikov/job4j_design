@@ -7,7 +7,7 @@ public class RevertLinked<T> implements Iterable<T> {
     private Node<T> head;
 
     public void add(T value) {
-        Node<T> node = new Node<T>(value, null);
+        Node<T> node = new Node<>(value, null);
         if (head == null) {
             head = node;
             return;
@@ -20,13 +20,22 @@ public class RevertLinked<T> implements Iterable<T> {
     }
 
     public boolean revert() {
-        /*TODO impl reverts of linked list.*/
-        return false;
+        boolean result = head != null && head.next != null;
+        Node<T> prev = null;
+        Node<T> current = head;
+        while (current != null) {
+            Node<T> next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+        return result;
     }
 
     @Override
     public Iterator<T> iterator() {
-        return new Iterator<T>() {
+        return new Iterator<>() {
             Node<T> node = head;
 
             @Override
