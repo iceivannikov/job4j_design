@@ -11,11 +11,11 @@ class SimpleTreeTest {
     @BeforeEach
     void setUp() {
         tree = new SimpleTree<>(1);
-        tree.add(1, 2);
     }
 
     @Test
     void when6ElFindLastThen6() {
+        tree.add(1, 2);
         tree.add(1, 3);
         tree.add(1, 4);
         tree.add(4, 5);
@@ -25,17 +25,18 @@ class SimpleTreeTest {
 
     @Test
     void whenElFindNotExistThenOptionEmpty() {
+        tree.add(1, 2);
         assertThat(tree.findBy(7)).isEmpty();
     }
 
     @Test
     void whenFindRootThenPresent() {
-        Tree<Integer> tree = new SimpleTree<>(1);
         assertThat(tree.findBy(1)).isPresent();
     }
 
     @Test
     void whenChildExistOnLeafThenNotAdd() {
+        tree.add(1, 2);
         tree.add(1, 3);
         tree.add(1, 4);
         tree.add(4, 5);
@@ -45,11 +46,46 @@ class SimpleTreeTest {
 
     @Test
     void whenParentNotExistThenFalse() {
+        tree.add(1, 2);
         assertThat(tree.add(3, 4)).isFalse();
     }
 
     @Test
     void whenAddRootNodeAgainThenFalse() {
+        tree.add(1, 2);
         assertThat(tree.add(1, 1)).isFalse();
+    }
+
+    @Test
+    void whenTreeIsBinaryThenTrue() {
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 4);
+        tree.add(2, 5);
+        assertThat(tree.isBinary()).isTrue();
+    }
+
+    @Test
+    void whenTreeIsNotBinaryThenFalse() {
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(1, 4);
+        assertThat(tree.isBinary()).isFalse();
+    }
+
+    @Test
+    void whenTreeHasOnlyRootAndBinaryThenTrue() {
+        assertThat(tree.isBinary()).isTrue();
+    }
+
+    @Test
+    void whenTreeHasMultiLevelAndBinaryThenTrue() {
+        tree.add(1, 2);
+        tree.add(1, 3);
+        tree.add(2, 4);
+        tree.add(2, 5);
+        tree.add(3, 6);
+        tree.add(3, 7);
+        assertThat(tree.isBinary()).isTrue();
     }
 }
