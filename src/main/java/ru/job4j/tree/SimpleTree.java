@@ -5,24 +5,19 @@ import java.util.function.Predicate;
 
 public class SimpleTree<E> implements Tree<E> {
     private final Node<E> root;
-    private final Set<E> elements = new HashSet<>();
 
     public SimpleTree(final E root) {
         this.root = new Node<>(root);
-        elements.add(root);
     }
 
     @Override
     public boolean add(E parent, E child) {
         boolean result = false;
         Optional<Node<E>> optionalNode = findBy(parent);
-        if (optionalNode.isPresent()) {
+        if (optionalNode.isPresent() && !contains(child)) {
             Node<E> parentNode = optionalNode.get();
-            if (!elements.contains(child)) {
-                parentNode.children.add(new Node<>(child));
-                elements.add(child);
-                result = true;
-            }
+            parentNode.children.add(new Node<>(child));
+            result = true;
         }
         return result;
     }
@@ -49,5 +44,9 @@ public class SimpleTree<E> implements Tree<E> {
             data.addAll(element.children);
         }
         return result;
+    }
+
+    private boolean contains(E value) {
+        return findByPredicate(e -> e.value.equals(value)).isPresent();
     }
 }
