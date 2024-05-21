@@ -54,4 +54,13 @@ public class Info {
         result = 31 * result + deleted;
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Info{"
+                + "added=" + added
+                + ", changed=" + changed
+                + ", deleted=" + deleted
+                + '}';
+    }
 }
