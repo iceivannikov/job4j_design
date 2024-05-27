@@ -19,13 +19,13 @@ public class Config {
         try (BufferedReader bf = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = bf.readLine()) != null) {
-                if (line.trim().length() == 1 && line.trim().charAt(0) == '=') {
+                if (isOnlyEqualSign(line)) {
                     throw new IllegalArgumentException("Line contains only the = sign");
                 }
-                if (line.length() > 2 && !line.trim().contains("=") && !line.trim().startsWith("#")) {
+                if (isInvalidLineWithoutEquals(line)) {
                     throw new IllegalArgumentException("line does not contain an =");
                 }
-                if (!line.isEmpty() && !line.trim().startsWith("#")) {
+                if (isNotEmptyAndNotComment(line)) {
                     int i = line.indexOf("=");
                     String key = line.substring(0, i);
                     String value = line.substring(i + 1);
@@ -55,6 +55,18 @@ public class Config {
             throw new RuntimeException(e);
         }
         return output.toString();
+    }
+
+    private boolean isOnlyEqualSign(String line) {
+        return line.trim().length() == 1 && line.trim().charAt(0) == '=';
+    }
+
+    private boolean isInvalidLineWithoutEquals(String line) {
+        return line.length() > 2 && !line.trim().contains("=") && !line.trim().startsWith("#");
+    }
+
+    private boolean isNotEmptyAndNotComment(String line) {
+        return !line.isEmpty() && !line.trim().startsWith("#");
     }
 
     public static void main(String[] args) {
