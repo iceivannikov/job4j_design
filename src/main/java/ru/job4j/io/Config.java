@@ -38,7 +38,7 @@ public class Config {
                 }
             }
         } catch (IOException e) {
-            throw new IllegalArgumentException(e);
+            throw new RuntimeException(e);
         }
     }
 
