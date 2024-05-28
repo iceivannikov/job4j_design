@@ -19,21 +19,10 @@ public class Config {
         try (BufferedReader bf = new BufferedReader(new FileReader(path))) {
             String line;
             while ((line = bf.readLine()) != null) {
-                if (isOnlyEqualSign(line)) {
-                    throw new IllegalArgumentException("Line contains only the = sign");
-                }
-                if (isInvalidLineWithoutEquals(line)) {
-                    throw new IllegalArgumentException("line does not contain an =");
-                }
-                if (isNotEmptyAndNotComment(line)) {
+                if (checkLine(line)) {
                     int i = line.indexOf("=");
                     String key = line.substring(0, i);
                     String value = line.substring(i + 1);
-                    if (key.isEmpty() || value.isEmpty()) {
-                        throw new IllegalArgumentException(
-                                "line begins with an = sign without a key, "
-                                        + "or ends with an = sign without a value");
-                    }
                     values.put(key, value);
                 }
             }
@@ -57,16 +46,23 @@ public class Config {
         return output.toString();
     }
 
-    private boolean isOnlyEqualSign(String line) {
-        return line.trim().length() == 1 && line.trim().charAt(0) == '=';
-    }
-
-    private boolean isInvalidLineWithoutEquals(String line) {
-        return line.length() > 2 && !line.trim().contains("=") && !line.trim().startsWith("#");
-    }
-
-    private boolean isNotEmptyAndNotComment(String line) {
-        return !line.isEmpty() && !line.trim().startsWith("#");
+    private boolean checkLine(String line) {
+        boolean result = true;
+        line = line.trim();
+        int i = line.indexOf("=");
+        if (line.isEmpty() || line.startsWith("#") || i == -1) {
+            result = false;
+        } else {
+            String key = line.substring(0, i).trim();
+            String value = line.substring(i + 1).trim();
+            if (key.isEmpty() || value.isEmpty()) {
+                result = false;
+            }
+        }
+        if (!result && !(line.isEmpty() || line.startsWith("#"))) {
+            throw new IllegalArgumentException("the entry is not correct");
+        }
+        return result;
     }
 
     public static void main(String[] args) {

@@ -30,8 +30,7 @@ class ConfigTest {
                 IllegalArgumentException.class,
                 config::load);
         assertThat(exception.getMessage())
-                .isEqualTo("line begins with an = sign without a key, "
-                        + "or ends with an = sign without a value");
+                .isEqualTo("the entry is not correct");
     }
 
     @Test
@@ -43,8 +42,7 @@ class ConfigTest {
                 config::load
         );
         assertThat(exception.getMessage())
-                .isEqualTo("line begins with an = sign without a key, "
-                        + "or ends with an = sign without a value");
+                .isEqualTo("the entry is not correct");
     }
 
     @Test
@@ -56,7 +54,7 @@ class ConfigTest {
                 config::load
         );
         assertThat(exception.getMessage())
-                .isEqualTo("line does not contain an =");
+                .isEqualTo("the entry is not correct");
     }
 
     @Test
@@ -67,7 +65,7 @@ class ConfigTest {
                 IllegalArgumentException.class,
                 config::load
         );
-        assertThat(exception.getMessage()).isEqualTo("Line contains only the = sign");
+        assertThat(exception.getMessage()).isEqualTo("the entry is not correct");
     }
 
     @Test
