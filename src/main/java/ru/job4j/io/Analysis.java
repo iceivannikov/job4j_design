@@ -1,23 +1,23 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class Analysis {
     public void unavailable(String source, String target) {
-        List<String> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(source));
-             PrintWriter pw = new PrintWriter(target);
-             BufferedWriter bw = new BufferedWriter(new FileWriter(target))) {
+             PrintWriter pw = new PrintWriter(target)) {
+            String start = null;
             String line;
             while ((line = br.readLine()) != null) {
-                list.add(line);
+                String status = line.split(" ")[0];
+                String time = line.split(" ")[1];
+                if ((status.equals("400") || status.equals("500")) && start == null) {
+                    start = time;
+                } else if ((status.equals("200") || status.equals("300")) && start != null) {
+                    pw.printf("%s;%s;%n", start, time);
+                    start = null;
+                }
             }
-
-            pw.println();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
