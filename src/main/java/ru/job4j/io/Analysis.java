@@ -11,9 +11,9 @@ public class Analysis {
             while ((line = br.readLine()) != null) {
                 String status = line.split(" ")[0];
                 String time = line.split(" ")[1];
-                if ((status.equals("400") || status.equals("500")) && start == null) {
+                if (("400".equals(status) || "500".equals(status)) && start == null) {
                     start = time;
-                } else if ((status.equals("200") || status.equals("300")) && start != null) {
+                } else if (("200".equals(status) || "300".equals(status)) && start != null) {
                     pw.printf("%s;%s;%n", start, time);
                     start = null;
                 }
