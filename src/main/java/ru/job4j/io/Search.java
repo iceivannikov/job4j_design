@@ -24,8 +24,17 @@ public class Search {
         if (args.length != 2) {
             throw new IllegalArgumentException("The number of elements must be two");
         }
-        if (args[0].trim().isEmpty() || args[1].trim().isEmpty()) {
-            throw new IllegalArgumentException("One of the arguments is not specified");
+        Path dir = Path.of(args[0].trim());
+        if (!Files.isDirectory(dir)) {
+            throw new IllegalArgumentException("First argument is not a directory");
         }
+        String extension = args[1].trim();
+        if (!isValidExtension(extension)) {
+            throw new IllegalArgumentException("Second argument is not a valid file extension");
+        }
+    }
+
+    private static boolean isValidExtension(String extension) {
+        return extension.startsWith(".") && extension.length() > 1 && extension.lastIndexOf('.') == 0;
     }
 }
