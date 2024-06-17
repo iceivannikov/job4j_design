@@ -20,23 +20,20 @@ public class ArgsName {
                         "Error: This argument '" + arg + "' does not start with a '-' character");
             }
             if (!arg.contains("=")) {
-                throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain an equal sign");
+                throw new IllegalArgumentException(
+                        "Error: This argument '" + arg + "' does not contain an equal sign");
             }
-            if (arg.length() > 3 && Character.isLetter(arg.charAt(1))) {
-                int equals = arg.indexOf("=");
-                if (equals > 1) {
-                    String value = arg.substring(equals + 1);
-                    if (value.isEmpty()) {
-                        throw new IllegalArgumentException(
-                                "Error: This argument '" + arg + "' does not contain a value");
-                    }
-                    values.put(arg.substring(1, equals), value);
-                } else {
-                    throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a key");
-                }
-            } else {
-                throw new IllegalArgumentException("Error: This argument '" + arg + "' does not contain a key");
+            int equals = arg.indexOf("=");
+            if (equals < 2) {
+                throw new IllegalArgumentException(
+                        "Error: This argument '" + arg + "' does not contain a key");
             }
+            String value = arg.substring(equals + 1);
+            if (value.isEmpty()) {
+                throw new IllegalArgumentException(
+                        "Error: This argument '" + arg + "' does not contain a value");
+            }
+            values.put(arg.substring(1, equals), value);
         }
     }
 
@@ -50,10 +47,11 @@ public class ArgsName {
     }
 
     public static void main(String[] args) {
-        ArgsName jvm = ArgsName.of(new String[] {"-Xmx=512", "-encoding=UTF-8"});
+        ArgsName jvm = ArgsName.of(new String[]{"-Xmx=512", "-encoding=UTF-8"});
         System.out.println(jvm.get("Xmx"));
 
-        ArgsName zip = ArgsName.of(new String[] {"-out=project.zip", "-encoding=UTF-8"});
+        ArgsName zip = ArgsName.of(new String[]{"-out=project.zip", "-encoding=UTF-8"});
         System.out.println(zip.get("out"));
+
     }
 }
