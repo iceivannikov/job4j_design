@@ -21,7 +21,7 @@ public class ConsoleChat {
         Random random = new Random();
         Scanner console = new Scanner(System.in);
         String input = console.nextLine();
-        boolean isStop = input.equals(STOP);
+        boolean isStop = STOP.equals(input);
         while (!OUT.equals(input)) {
             logs.add(input);
             if (!isStop) {
@@ -32,10 +32,10 @@ public class ConsoleChat {
             }
             input = console.nextLine();
             logs.add(input);
-            if (input.equals(STOP)) {
+            if (STOP.equals(input)) {
                 isStop = true;
             }
-            if (input.equals(CONTINUE)) {
+            if (CONTINUE.equals(input)) {
                 isStop = false;
             }
         }
