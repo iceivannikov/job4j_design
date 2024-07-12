@@ -18,6 +18,14 @@ public class Manufacturer {
     public Manufacturer() {
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
     @Override
     public String toString() {
         return "Manufacturer{"

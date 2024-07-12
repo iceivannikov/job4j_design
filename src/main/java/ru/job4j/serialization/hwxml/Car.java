@@ -30,6 +30,26 @@ public class Car {
     public Car() {
     }
 
+    public boolean isElectric() {
+        return isElectric;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public String[] getFeatures() {
+        return features;
+    }
+
     @Override
     public String toString() {
         return "Car{"
