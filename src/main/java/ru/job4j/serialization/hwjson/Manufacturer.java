@@ -1,4 +1,4 @@
-package ru.job4j.serialization.json.hwjson;
+package ru.job4j.serialization.hwjson;
 
 public class Manufacturer {
     private final String name;

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Car isElectric="true" price="79999.99" model="Model S">
+    <manufacturer name="Tesla" country="USA"/>
+    <features>
+        <feature>Autopilot</feature>
+        <feature>Electric</feature>
+        <feature>Luxury</feature>
+    </features>
+</Car>
