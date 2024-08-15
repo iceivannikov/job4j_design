@@ -1,0 +1,27 @@
+insert into fauna (name, avg_age, discovery_date)
+values
+('Canis lupus', 18250, '1758-01-01'),
+('Panthera leo', 6935, '1758-01-01'),
+('Elephas maximus', 25550, '1758-01-01'),
+('Ailuropoda melanoleuca', 9125, '1869-03-11'),
+('Balaenoptera musculus', 29200, '1758-01-01'),
+('Pavo cristatus', 5475, '1758-01-01'),
+('Gorilla beringei', 14600, '1903-10-17'),
+('Cyprinus carpio', 5475, '1758-01-01'),
+('Passer domesticus', 1825, '1758-01-01'),
+('Homo sapiens', 29200, '1758-01-01'),
+('Chelonia mydas', 36500, '1758-01-01'),
+('Falco peregrinus', 3650, '1771-01-01'),
+('Sphenodon punctatus', 36500, '1831-01-01'),
+('Phascolarctos cinereus', 7300, '1816-01-01'),
+('Carcharodon carcharias', 18250, '1758-01-01'),
+('Vulpes vulpes', 14600, '1758-01-01'),
+('Struthio camelus', 21900, '1758-01-01'),
+('Salmo salar', 5475, '1758-01-01'),
+('Phoenicopterus roseus', 18250, '1758-01-01'),
+('Ursus arctos', 21900, '1758-01-01'),
+('Equus ferus caballus', 10950, '1758-01-01'),
+('Panthera onca', 10950, '1758-01-01'),
+('Macropus rufus', 3650, '1822-01-01'),
+('Ornithorhynchus anatinus', 9130, '1799-01-01')
+('Tursiops truncatus', 10950, '1758-01-01');
