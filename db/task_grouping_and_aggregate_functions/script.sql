@@ -1,74 +1,72 @@
-create table devices(
-    id    serial primary key,
-    name  varchar(255),
-    price float
+CREATE TABLE type (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
 );
 
-create table people(
-    id   serial primary key,
-    name varchar(255)
+CREATE TABLE product (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    type_id INTEGER NOT NULL REFERENCES type(id),
+    expired_date DATE NOT NULL,
+    price NUMERIC(10, 2) NOT NULL
 );
 
-create table devices_people(
-    id        serial primary key,
-    device_id int references devices (id),
-    people_id int references people (id)
-);
+INSERT INTO type (name) VALUES 
+('Electronics'),
+('Furniture'),
+('Clothing'),
+('Food'),
+('Books');
 
-insert into devices(name, price) values ('iPhone 13', 999.99);
-insert into devices(name, price) values ('Samsung Galaxy S21', 799.99);
-insert into devices(name, price) values ('Google Pixel 6', 599.99);
-insert into devices(name, price) values ('OnePlus 9', 729.99);
-insert into devices(name, price) values ('Sony Xperia 5 III', 949.99);
-insert into devices(name, price) values ('Huawei P40 Pro', 899.99);
-insert into devices(name, price) values ('Xiaomi Mi 11', 749.99);
-insert into devices(name, price) values ('Oppo Find X3 Pro', 1099.99);
-insert into devices(name, price) values ('Nokia 8.3 5G', 699.99);
-insert into devices(name, price) values ('Motorola Edge+', 999.99);
-insert into devices(name, price) values ('Asus ROG Phone 5', 999.99);
-insert into devices(name, price) values ('LG Wing', 949.99);
-insert into devices(name, price) values ('Realme GT', 599.99);
-insert into devices(name, price) values ('ZTE Axon 30', 499.99);
-insert into devices(name, price) values ('Vivo X60 Pro', 799.99);
+INSERT INTO product (name, type_id, expired_date, price) VALUES 
+('Smartphone', 1, '2025-12-31', 699.99),
+('Laptop', 1, '2026-01-31', 999.99),
+('Table', 2, '2030-07-15', 149.99),
+('Chair', 2, '2030-07-15', 89.99),
+('Jacket', 3, '2025-12-31', 129.99),
+('T-shirt', 3, '2024-06-30', 19.99),
+('Bread', 4, '2024-08-19', 2.99),
+('Milk', 4, '2024-08-22', 1.99),
+('Apple', 4, '2024-08-25', 0.99),
+('Chocolate', 4, '2025-01-01', 3.49),
+('Novel', 5, '2030-12-31', 14.99),
+('Cookbook', 5, '2030-12-31', 24.99),
+('Desk', 2, '2030-07-15', 249.99),
+('Monitor', 1, '2026-01-31', 199.99),
+('Keyboard', 1, '2026-01-31', 49.99),
+('Jeans', 3, '2025-12-31', 49.99),
+('Sofa', 2, '2030-07-15', 599.99),
+('Blender', 1, '2025-12-31', 79.99),
+('Pasta', 4, '2024-12-31', 1.49),
+('Cheese', 4, '2030-11-29', 1.35),
+('Cereal', 4, '2025-02-28', 3.99);
 
-insert into people (name) values ('Алексей');
-insert into people (name) values ('Борис');
-insert into people (name) values ('Виктор');
-insert into people (name) values ('Галина');
-insert into people (name) values ('Дмитрий');
-insert into people (name) values ('Екатерина');
-insert into people (name) values ('Зоя');
-insert into people (name) values ('Иван');
-insert into people (name) values ('Мария');
-insert into people (name) values ('Николай');
+select * from product 
+join type on product.type_id = type.id
+where type.name = 'Food';
 
-insert into devices_people (device_id, people_id) values (32, 21);
-insert into devices_people (device_id, people_id) values (33, 21);
-insert into devices_people (device_id, people_id) values (34, 22);
-insert into devices_people (device_id, people_id) values (35, 22);
-insert into devices_people (device_id, people_id) values (36, 23);
-insert into devices_people (device_id, people_id) values (37, 23);
-insert into devices_people (device_id, people_id) values (38, 24);
-insert into devices_people (device_id, people_id) values (39, 24);
-insert into devices_people (device_id, people_id) values (40, 25);
-insert into devices_people (device_id, people_id) values (41, 26);
-insert into devices_people (device_id, people_id) values (42, 27);
-insert into devices_people (device_id, people_id) values (43, 28);
-insert into devices_people (device_id, people_id) values (44, 29);
-insert into devices_people (device_id, people_id) values (45, 30);
-insert into devices_people (device_id, people_id) values (46, 30);
+select * from product
+where name like '%oo%';
 
-select avg(price) from devices;
+select * from product
+where expired_date < '2024-08-20';
 
-select p.name, avg(d.price)
-from people p
-join devices_people dp on p.id = dp.people_id
-join devices d on dp.device_id = d.id
-group by p.name;
+select t.name, p.price from product p
+join type t on p.type_id = t.id
+where p.price = (select max(price) from product);
 
-select p.name, avg(d.price)
-from people p
-join devices_people dp on p.id = dp.people_id
-join devices d on dp.device_id = d.id
-group by p.name
-having avg(d.price) > 700;
+select t.name as имя_типа, count(p) as количество from product p
+join type t on p.type_id = t.id
+group by t.name;
+
+select t.name, p.name from product p
+join type t on p.type_id = t.id
+where t.name = 'Clothing' or t.name = 'Electronics';
+
+select t.name as имя_типа, count(p) as количество from product p
+join type t on p.type_id = t.id
+group by t.name
+having count(p) < 5;
+
+select p.name, t.name from product p
+join type t on p.type_id = t.id;
