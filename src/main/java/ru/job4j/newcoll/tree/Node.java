@@ -32,7 +32,7 @@ public class Node<E> {
     }
 
     public List<Node<E>> getChildren() {
-        return new ArrayList<>(children);
+        return children;
     }
 
     public void setChildren(List<Node<E>> children) {
