@@ -176,4 +176,29 @@ class BinarySearchTreeTest {
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
         assertThat(tree.inSymmetricalOrder()).isEmpty();
     }
+
+    @Test
+    void whenClearTreeWithMultipleElementsThenTreeIsEmpty() {
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+        for (int element : new int[]{4, 2, 6, 1, 3, 5, 7}) {
+            tree.put(element);
+        }
+        tree.clear();
+        assertThat(tree.inSymmetricalOrder()).isEmpty();
+    }
+
+    @Test
+    void whenClearTreeWithOneElementThenTreeIsEmpty() {
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+        tree.put(10);
+        tree.clear();
+        assertThat(tree.inSymmetricalOrder()).isEmpty();
+    }
+
+    @Test
+    void whenClearEmptyTreeThenTreeIsEmpty() {
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+        tree.clear();
+        assertThat(tree.inSymmetricalOrder()).isEmpty();
+    }
 }
